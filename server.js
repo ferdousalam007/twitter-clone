@@ -4,7 +4,8 @@ const path = require('path');
 const dotenv = require('dotenv');
 const { notFoundHandler, errorHandler } = require('./middlewares/common/errorHandler');
 const cookieParser = require('cookie-parser');
-const authRouter = require('./routes/auth/authRoute')
+const authRouter = require('./routes/auth/authRoute');
+const mongoose = require('mongoose')
 
 
 // App Initialization and Config
@@ -42,6 +43,16 @@ app.use(errorHandler);
 
 
 // Server Listen
-app.listen(process.env.PORT || 3000, () => {
-    console.log("Server has been runing on port" + ' ' + 3000);
+mongoose.connect(process.env.DB_URI, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true
 })
+    .then(() => {
+        try {
+            app.listen(process.env.PORT || 3000, () => {
+                console.log("Server has been runing on port" + ' ' + 3000);
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    })

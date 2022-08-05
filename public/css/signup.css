@@ -21,6 +21,7 @@
   background: #FFFFFF;
   padding: 22px 30px;
   border-radius: 6px;
+  border: 10px solid #1d9bf0;
 }
 .signup-wrapper h2 {
   padding: 15px 0;
